@@ -8,9 +8,9 @@ import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.B.carrasco.burgerapp.R;
+import com.B.carrasco.burgerapp.database.DatabaseHelper;
 import com.B.carrasco.burgerapp.models.Ingredient;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.*;
 
 public class BuildBurgerActivity extends AppCompatActivity {
@@ -102,9 +102,7 @@ public class BuildBurgerActivity extends AppCompatActivity {
         btnCreateBurger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedIngredients.size() >= 0) {
-                    showSaucesDialog();
-                }
+                showSaucesDialog();
             }
         });
 
@@ -155,14 +153,12 @@ public class BuildBurgerActivity extends AppCompatActivity {
         CheckBox cbDialogAji = dialogView.findViewById(R.id.cbDialogAji);
 
         builder.setPositiveButton("Continuar", (dialog, which) -> {
-            // Guardar salsas seleccionadas
             selectedSauces.clear();
             if (cbDialogMayo.isChecked()) selectedSauces.add("Mayonesa");
             if (cbDialogKetchup.isChecked()) selectedSauces.add("Ketchup");
             if (cbDialogMustard.isChecked()) selectedSauces.add("Mostaza");
             if (cbDialogAji.isChecked()) selectedSauces.add("Ají");
 
-            // Mostrar resumen antes de enviar
             showOrderSummary();
         });
 
@@ -174,7 +170,6 @@ public class BuildBurgerActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("📋 Resumen de tu Pedido");
 
-        // Construir mensaje del resumen
         StringBuilder summaryMessage = new StringBuilder();
         summaryMessage.append("¡Revisa tu hamburguesa antes de enviar el pedido!\n\n");
 
@@ -204,7 +199,6 @@ public class BuildBurgerActivity extends AppCompatActivity {
         });
 
         builder.setNegativeButton("✏️ Editar Pedido", (dialog, which) -> {
-            // Volver a la pantalla de edición
             dialog.dismiss();
         });
 
@@ -215,7 +209,6 @@ public class BuildBurgerActivity extends AppCompatActivity {
     }
 
     private void createOrderAndSendWhatsApp() {
-        // Construir mensaje final para WhatsApp
         StringBuilder message = new StringBuilder();
         message.append("🍔 *NUEVO PEDIDO - BURGER APP* 🍔\n\n");
         message.append("*Base:* Pan + Doble Hamburguesa ").append(meatType).append(" - $2000\n");
@@ -234,10 +227,9 @@ public class BuildBurgerActivity extends AppCompatActivity {
         }
 
         message.append("\n*TOTAL: $").append(totalPrice).append("*\n\n");
-        message.append("⏰ *Hora:* ").append(java.text.SimpleDateFormat.getDateTimeInstance().format(new Date())).append("\n");
+        message.append("⏰ *Hora:* ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())).append("\n");
         message.append("📱 *Pedido desde App BurgerApp*");
 
-        // Enviar por WhatsApp
         sendWhatsAppMessage(message.toString());
 
         Toast.makeText(this, "¡Pedido confirmado! Total: $" + totalPrice, Toast.LENGTH_LONG).show();
@@ -246,7 +238,7 @@ public class BuildBurgerActivity extends AppCompatActivity {
 
     private void sendWhatsAppMessage(String message) {
         try {
-            String phoneNumber = "+56912345678"; // REEMPLAZA con número real del cocinero
+            String phoneNumber = "+56912345678"; // REEMPLAZA con número real
             String url = "https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + Uri.encode(message);
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -254,7 +246,6 @@ public class BuildBurgerActivity extends AppCompatActivity {
             startActivity(intent);
 
         } catch (Exception e) {
-            // Fallback: mostrar mensaje completo en la app
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("📞 Pedido Listo para Enviar")
                     .setMessage("No se pudo abrir WhatsApp automáticamente.\n\n" +
