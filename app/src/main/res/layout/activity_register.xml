@@ -10,11 +10,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="🍔 Burger App"
+        android:text="📝 Registrarse"
         android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="#FF5722"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginBottom="30dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Iniciar Sesión"
+            android:text="Crear Cuenta"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="20dp" />
@@ -41,6 +41,15 @@
             android:padding="12dp" />
 
         <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp"
+            android:padding="12dp" />
+
+        <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,51 +58,15 @@
             android:padding="12dp" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Iniciar Sesión"
+            android:text="Registrarse"
             android:layout_marginTop="24dp"
             android:backgroundTint="#FF5722"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Registrarse"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:textColor="#FF5722" />
-
-    </LinearLayout>
-
-    <!-- Credenciales de prueba -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#E3F2FD"
-        android:padding="12dp"
-        android:layout_marginTop="30dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Credenciales de prueba:"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Admin: usuario: admin | contraseña: admin123" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cliente: usuario: cliente | contraseña: cliente123" />
     </LinearLayout>
 
 </LinearLayout>
