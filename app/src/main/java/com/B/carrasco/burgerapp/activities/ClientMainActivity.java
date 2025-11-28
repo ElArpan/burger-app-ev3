@@ -7,30 +7,28 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.B.carrasco.burgerapp.R;
-import android.widget.Toast;
 
 public class ClientMainActivity extends AppCompatActivity {
     private TextView tvWelcome;
-    private Button btnBuildBurger, btnOrderHistory, btnLogout;
-    private String username;
+    private Button btnBuildBurger, btnUploadDeposit, btnOrderHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_main);
 
-        username = getIntent().getStringExtra("USERNAME");
         initViews();
         setupClickListeners();
+
+        String username = getIntent().getStringExtra("USERNAME");
+        tvWelcome.setText("Bienvenido: " + username);
     }
 
     private void initViews() {
         tvWelcome = findViewById(R.id.tvWelcome);
         btnBuildBurger = findViewById(R.id.btnBuildBurger);
+        btnUploadDeposit = findViewById(R.id.btnUploadDeposit);
         btnOrderHistory = findViewById(R.id.btnOrderHistory);
-        btnLogout = findViewById(R.id.btnLogout);
-
-        tvWelcome.setText("Bienvenido: " + username);
     }
 
     private void setupClickListeners() {
@@ -41,18 +39,18 @@ public class ClientMainActivity extends AppCompatActivity {
             }
         });
 
-        btnOrderHistory.setOnClickListener(new View.OnClickListener() {
+        btnUploadDeposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Próximamente: Historial de pedidos
-                Toast.makeText(ClientMainActivity.this, "Funcionalidad en desarrollo", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ClientMainActivity.this, DepositUploadActivity.class));
             }
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnOrderHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Toast.makeText(ClientMainActivity.this,
+                        "Historial de pedidos - Próximamente", Toast.LENGTH_SHORT).show();
             }
         });
     }

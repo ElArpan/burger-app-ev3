@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permisos -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +19,7 @@
         android:theme="@style/Theme.BurgerApp"
         tools:targetApi="31">
 
+        <!-- Activity Principal - Login -->
         <activity
             android:name=".activities.LoginActivity"
             android:exported="true">
@@ -22,10 +29,24 @@
             </intent-filter>
         </activity>
 
+        <!-- Otras Activities -->
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.AdminMainActivity" />
         <activity android:name=".activities.ClientMainActivity" />
         <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.BuildBurgerActivity" />
+        <activity android:name=".activities.DepositUploadActivity" />
+
+        <!-- File Provider para la cámara -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.B.carrasco.burgerapp.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
     </application>
 
