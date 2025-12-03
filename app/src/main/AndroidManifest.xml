@@ -33,10 +33,10 @@
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.AdminMainActivity" />
         <activity android:name=".activities.ClientMainActivity" />
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".activities.BuildBurgerActivity" />
         <activity android:name=".activities.DepositUploadActivity" />
-
+        <activity android:name=".activities.OrderHistoryActivity" />
         <!-- File Provider para la cámara -->
         <provider
             android:name="androidx.core.content.FileProvider"
