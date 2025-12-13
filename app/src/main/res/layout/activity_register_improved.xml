@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_burgundy_gold_gradient_old"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📝 Registro Rápido"
+            android:textColor="@color/gold_light"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/poppins_bold" />
+
+        <!-- Card de Registro -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_rounded_white"
+            android:padding="24dp"
+            android:elevation="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Datos Personales"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/burgundy_900"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/poppins_bold" />
+
+            <!-- Usuario -->
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Usuario (mínimo 3 caracteres)"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/input_rounded"
+                android:textColor="@color/burgundy_900"
+                android:textColorHint="#888888"
+                android:layout_marginBottom="16dp"
+                android:drawableStart="@drawable/ic_user"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular" />
+
+            <!-- Email -->
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/input_rounded"
+                android:textColor="@color/burgundy_900"
+                android:textColorHint="#888888"
+                android:layout_marginBottom="16dp"
+                android:drawableStart="@android:drawable/ic_dialog_email"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular" />
+
+            <!-- Teléfono -->
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Teléfono (+56912345678)"
+                android:inputType="phone"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/input_rounded"
+                android:textColor="@color/burgundy_900"
+                android:textColorHint="#888888"
+                android:layout_marginBottom="16dp"
+                android:drawableStart="@android:drawable/ic_menu_call"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular" />
+
+            <!-- Dirección -->
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Dirección en el condominio"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/input_rounded"
+                android:textColor="@color/burgundy_900"
+                android:textColorHint="#888888"
+                android:layout_marginBottom="16dp"
+                android:drawableStart="@android:drawable/ic_menu_compass"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular" />
+
+            <!-- Contraseña -->
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Contraseña (mínimo 6 caracteres)"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/input_rounded"
+                android:textColor="@color/burgundy_900"
+                android:textColorHint="#888888"
+                android:layout_marginBottom="24dp"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular" />
+
+            <!-- Botón Registro -->
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="CREAR CUENTA"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:backgroundTint="@color/burgundy_700"
+                android:stateListAnimator="@null"
+                android:elevation="4dp"
+                android:fontFamily="@font/poppins_bold" />
+
+        </LinearLayout>
+
+        <!-- Info adicional -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⚠️ Solo para residentes del condominio"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:background="#80000000"
+            android:fontFamily="@font/poppins_regular" />
+
+        <!-- Enlace a login -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Ya tienes cuenta? Inicia sesión"
+            android:textColor="@color/gold_light"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="goToLogin"
+            android:fontFamily="@font/poppins_regular" />
+
+    </LinearLayout>
+</ScrollView>

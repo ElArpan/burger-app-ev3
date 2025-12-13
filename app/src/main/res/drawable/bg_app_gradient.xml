@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Reemplaza / agrega: res/drawable/bg_app_gradient.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Degradado principal -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="@color/burgundy_light"
+                android:endColor="@color/burgundy_deep"
+                android:angle="270"/>
+        </shape>
+    </item>
+
+    <!-- Overlay sutil (ruido/diagonales) - usa alpha baja -->
+
+</layer-list>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="com_google_android_gms_fonts_certs">
+        <item>@array/com_google_android_gms_fonts_certs_dev</item>
+    </array>
+
+    <!-- fallback (esto normalmente viene de Play Services; si falla, la app usará una fuente del sistema) -->
+    <string-array name="com_google_android_gms_fonts_certs_dev">
+        <item>MIIBIjANBgkqh...</item>
+    </string-array>
+</resources>

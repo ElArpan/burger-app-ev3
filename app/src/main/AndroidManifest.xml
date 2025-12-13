@@ -22,7 +22,8 @@
         <!-- Activity Principal - Login -->
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,23 +31,22 @@
         </activity>
 
         <!-- Otras Activities -->
-        <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.AdminMainActivity" />
-        <activity android:name=".activities.ClientMainActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".activities.BuildBurgerActivity" />
-        <activity android:name=".activities.DepositUploadActivity" />
-        <activity android:name=".activities.OrderHistoryActivity" />
-        <!-- File Provider para la cámara -->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.B.carrasco.burgerapp.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+        <activity android:name=".activities.RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.AdminMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ClientMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.BuildBurgerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.DepositUploadActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.OrderHistoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ManageIngredientsActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 

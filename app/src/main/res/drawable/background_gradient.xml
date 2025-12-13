@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Gradient base -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#FFF8F6"
+                android:centerColor="#F5ECE8"
+                android:endColor="#F3E9E7"
+                android:angle="270" />
+        </shape>
+    </item>
+
+    <!-- Overlay sutil con burdeos semitransparente en la esquina -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#00FFFFFF"
+                android:endColor="#20B31616"
+                android:angle="315" />
+        </shape>
+    </item>
+
+    <!-- Optional vignette / texture effect -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</layer-list>

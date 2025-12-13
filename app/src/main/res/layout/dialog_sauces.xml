@@ -1,43 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Selecciona las salsas que deseas:"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <CheckBox
         android:id="@+id/cbDialogMayo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mayonesa"
-        android:layout_marginBottom="8dp" />
+        android:fontFamily="@font/poppins_regular"/>
 
     <CheckBox
         android:id="@+id/cbDialogKetchup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ketchup"
-        android:layout_marginBottom="8dp" />
+        android:fontFamily="@font/poppins_regular"/>
 
     <CheckBox
         android:id="@+id/cbDialogMustard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mostaza"
-        android:layout_marginBottom="8dp" />
+        android:fontFamily="@font/poppins_regular"/>
 
     <CheckBox
         android:id="@+id/cbDialogAji"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ají" />
-
+        android:text="Ají"
+        android:fontFamily="@font/poppins_regular"/>
 </LinearLayout>

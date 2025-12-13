@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.B.carrasco.burgerapp.R;
-import android.widget.Toast;
 
 public class AdminMainActivity extends AppCompatActivity {
     private TextView tvWelcome;
@@ -30,23 +29,24 @@ public class AdminMainActivity extends AppCompatActivity {
         btnManageIngredients = findViewById(R.id.btnManageIngredients);
         btnLogout = findViewById(R.id.btnLogout);
 
-        tvWelcome.setText("Panel Admin: " + username);
+        tvWelcome.setText("Panel Admin: " + (username != null ? username : ""));
     }
 
     private void setupClickListeners() {
         btnManageOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Próximamente: Gestión de pedidos
-                Toast.makeText(AdminMainActivity.this, "Funcionalidad en desarrollo", Toast.LENGTH_SHORT).show();
+                // Aquí podrías abrir ManageOrdersActivity cuando la implementes
+                // por ahora abrimos la pantalla de historial de pedidos como placeholder
+                startActivity(new Intent(AdminMainActivity.this, OrderHistoryActivity.class));
             }
         });
 
         btnManageIngredients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Próximamente: Gestión de ingredientes
-                Toast.makeText(AdminMainActivity.this, "Funcionalidad en desarrollo", Toast.LENGTH_SHORT).show();
+                // Abrir gestión de ingredientes
+                startActivity(new Intent(AdminMainActivity.this, ManageIngredientsActivity.class));
             }
         });
 

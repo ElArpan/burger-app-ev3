@@ -9,6 +9,7 @@ import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.B.carrasco.burgerapp.R;
+import android.graphics.Color;
 
 public class DepositUploadActivity extends AppCompatActivity {
     private Button btnSelectPhoto, btnSubmit, btnChangePhoto;
