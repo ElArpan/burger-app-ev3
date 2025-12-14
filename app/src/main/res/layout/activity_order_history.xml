@@ -3,83 +3,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5">
+    android:background="@drawable/bg_burgundy_gold_gradient_old">
 
-    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FF5722"
-        android:padding="24dp"
-        android:elevation="4dp">
+        android:padding="20dp"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="📋 Historial de Pedidos"
-            android:textSize="24sp"
+            android:text="📋 Mis Pedidos"
+            android:textColor="@color/gold_light"
+            android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="@android:color/white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Revisa todos tus pedidos anteriores"
-            android:textSize="14sp"
-            android:textColor="#FFCCBC"
-            android:layout_marginTop="4dp" />
-
+            android:fontFamily="@font/title_font"/>
     </LinearLayout>
 
-    <!-- Contenido -->
+    <ListView
+        android:id="@+id/lvOrders"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="12dp"
+        android:padding="16dp"
+        android:clipToPadding="false"/>
+
     <LinearLayout
+        android:id="@+id/layoutEmpty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="40dp">
 
-        <!-- Si hay pedidos -->
-        <ListView
-            android:id="@+id/lvOrders"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="#E0E0E0"
-            android:dividerHeight="1dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📭"
+            android:textSize="60sp"
+            android:layout_marginBottom="16dp"/>
 
-        <!-- Si no hay pedidos -->
-        <LinearLayout
-            android:id="@+id/tvEmpty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aún no tienes pedidos"
+            android:textColor="@color/gold_light"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/title_font"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Anímate a probar la mejor hamburguesa del barrio!"
+            android:textColor="#E0E0E0"
+            android:textSize="16sp"
             android:gravity="center"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="📭"
-                android:textSize="48sp"
-                android:layout_marginBottom="16dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No hay pedidos anteriores"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="¡Haz tu primer pedido!"
-                android:textSize="14sp"
-                android:textColor="#666" />
-
-        </LinearLayout>
-
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/body_font"/>
     </LinearLayout>
 
 </LinearLayout>

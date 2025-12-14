@@ -1,72 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center"
-    android:background="#F5F5F5">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="📝 Registrarse"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#FF5722"
-        android:layout_marginBottom="30dp" />
+    android:background="@drawable/bg_burgundy_gold_gradient_old"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@android:color/white"
-        android:padding="20dp"
-        android:elevation="4dp">
+        android:gravity="center"
+        android:padding="24dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Crear Cuenta"
-            android:textSize="20sp"
+            android:text="📝 Registro Rápido"
+            android:textColor="@color/gold_light"
+            android:textSize="32sp"
             android:textStyle="bold"
-            android:layout_marginBottom="20dp" />
-
-        <EditText
-            android:id="@+id/etUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Usuario"
-            android:layout_marginBottom="16dp"
-            android:padding="12dp" />
-
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:layout_marginBottom="16dp"
-            android:padding="12dp" />
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Contraseña"
-            android:inputType="textPassword"
-            android:padding="12dp" />
-
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Registrarse"
             android:layout_marginTop="24dp"
-            android:backgroundTint="#FF5722"
-            android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/title_font" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_rounded_white"
+            android:padding="24dp"
+            android:elevation="8dp"
+            android:layout_margin="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Datos Personales"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/burgundy_900"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/title_font" />
+
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Nombre y Apellido"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/input_rounded"
+                android:textColor="@color/burgundy_900"
+                android:textColorHint="#888888"
+                android:layout_marginBottom="16dp"
+                android:drawableStart="@drawable/ic_user"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/body_font"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/input_rounded"
+                android:textColor="@color/burgundy_900"
+                android:textColorHint="#888888"
+                android:layout_marginBottom="16dp"
+                android:drawableStart="@android:drawable/ic_dialog_email"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/body_font" />
+
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Teléfono (+569...)"
+                android:inputType="phone"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/input_rounded"
+                android:textColor="@color/burgundy_900"
+                android:textColorHint="#888888"
+                android:layout_marginBottom="16dp"
+                android:drawableStart="@android:drawable/ic_menu_call"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/body_font" />
+
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Dirección (Block/Casa)"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/input_rounded"
+                android:textColor="@color/burgundy_900"
+                android:textColorHint="#888888"
+                android:layout_marginBottom="16dp"
+                android:drawableStart="@android:drawable/ic_menu_compass"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/body_font" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Contraseña (mín. 6)"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/input_rounded"
+                android:textColor="@color/burgundy_900"
+                android:textColorHint="#888888"
+                android:layout_marginBottom="24dp"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/body_font" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="CREAR CUENTA"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:backgroundTint="@color/burgundy_700"
+                android:stateListAnimator="@null"
+                android:elevation="4dp"
+                android:fontFamily="@font/title_font" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⚠️ Solo para residentes del condominio"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:background="#80000000"
+            android:fontFamily="@font/body_font" />
+
+        <TextView
+            android:id="@+id/tvGoToLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Ya tienes cuenta? Inicia sesión"
+            android:textColor="@color/gold_light"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:fontFamily="@font/body_font" />
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

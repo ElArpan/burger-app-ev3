@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_app_gradient">
+    android:background="@drawable/bg_burgundy_gold_gradient_old">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loadingAnim"
@@ -23,5 +23,5 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/loadingAnim"
         android:paddingTop="16dp"
-        android:fontFamily="@font/poppins_bold" />
+        android:fontFamily="@font/title_font" />
 </RelativeLayout>

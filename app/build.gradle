@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.application'
+    // AGREGA ESTA LÍNEA PARA ACTIVAR EL PLUGIN:
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -8,11 +10,10 @@ android {
 
     defaultConfig {
         applicationId "com.B.carrasco.burgerapp"
-        minSdk 21
+        minSdk 24 // Recomendado para Firebase
         targetSdk 34
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -22,26 +23,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
 dependencies {
-
+    // Tus dependencias visuales actuales
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.airbnb.android:lottie:6.1.0' // Para tus animaciones
 
-    /* Lottie */
-    implementation 'com.airbnb.android:lottie:6.4.0'
+    // --- ZONA FIREBASE (Actualizado con tus versiones) ---
 
-    /* Fonts */
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    // 1. La Plataforma BOM (Controla las versiones para que no choquen)
+    implementation platform('com.google.firebase:firebase-bom:34.7.0')
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.0'
+    // 2. Autenticación (Login/Registro)
+    // No ponemos versión porque la BOM la decide
+    implementation 'com.google.firebase:firebase-auth'
+
+    // 3. Base de Datos en la Nube (Firestore)
+    // Aquí guardaremos los pedidos y usuarios para que tú los veas
+    implementation 'com.google.firebase:firebase-firestore'
 }

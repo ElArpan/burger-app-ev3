@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permisos -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,7 +18,6 @@
         android:theme="@style/Theme.BurgerApp"
         tools:targetApi="31">
 
-        <!-- Activity Principal - Login -->
         <activity
             android:name=".activities.LoginActivity"
             android:exported="true"
@@ -30,21 +28,30 @@
             </intent-filter>
         </activity>
 
-        <!-- Otras Activities -->
+        <activity android:name=".activities.PaymentMethodActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".activities.RegisterActivity"
             android:screenOrientation="portrait"/>
+
         <activity android:name=".activities.AdminMainActivity"
             android:screenOrientation="portrait"/>
+
         <activity android:name=".activities.ClientMainActivity"
             android:screenOrientation="portrait"/>
+
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"/>
+
         <activity android:name=".activities.BuildBurgerActivity"
             android:screenOrientation="portrait"/>
+
         <activity android:name=".activities.DepositUploadActivity"
             android:screenOrientation="portrait"/>
+
         <activity android:name=".activities.OrderHistoryActivity"
             android:screenOrientation="portrait"/>
+
         <activity android:name=".activities.ManageIngredientsActivity"
             android:screenOrientation="portrait"/>
 

@@ -1,67 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:background="#F5F5F5">
+    android:fillViewport="true"
+    android:background="@drawable/bg_burgundy_gold_gradient_old">
 
-    <!-- Bienvenida -->
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenido, Cliente"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="32dp" />
-
-    <!-- Botón Construir Hamburguesa -->
-    <Button
-        android:id="@+id/btnBuildBurger"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="🍔 Construir Hamburguesa"
-        android:textSize="18sp"
-        android:padding="20dp"
-        android:backgroundTint="#FF5722"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="16dp" />
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-    <!-- Botón Historial de Pedidos -->
-    <Button
-        android:id="@+id/btnOrderHistory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="📋 Historial de Pedidos"
-        android:textSize="18sp"
-        android:padding="20dp"
-        android:backgroundTint="#2196F3"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="16dp" />
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Hola, Vecino!"
+            android:textColor="@color/gold_light"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/title_font"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp" />
 
-    <!-- Botón Subir Comprobante -->
-    <Button
-        android:id="@+id/btnDeposit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="💳 Subir Comprobante"
-        android:textSize="18sp"
-        android:padding="20dp"
-        android:backgroundTint="#4CAF50"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="16dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Qué se te antoja hoy?"
+            android:textColor="#E0E0E0"
+            android:textSize="16sp"
+            android:fontFamily="@font/body_font"
+            android:layout_marginBottom="24dp" />
 
-    <!-- Botón Cerrar Sesión -->
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="🚪 Cerrar Sesión"
-        android:textSize="16sp"
-        android:padding="16dp"
-        android:backgroundTint="#9E9E9E"
-        android:textColor="@android:color/white" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardStoreStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="#F5F5F5"
+            android:layout_marginBottom="24dp">
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvStatusEmoji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔴"
+                    android:textSize="28sp"
+                    android:layout_marginEnd="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Estado del Local"
+                        android:textSize="12sp"
+                        android:textColor="#757575"
+                        android:fontFamily="@font/body_font"/>
+
+                    <TextView
+                        android:id="@+id/tvStoreStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cargando..."
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#757575"
+                        android:fontFamily="@font/title_font"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBuildBurger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/white"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="24dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍔"
+                    android:textSize="36sp"
+                    android:layout_marginEnd="20dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pedir Hamburguesa"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/burgundy_900"
+                        android:fontFamily="@font/title_font"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ármala a tu gusto ahora"
+                        android:textSize="14sp"
+                        android:textColor="#757575"
+                        android:fontFamily="@font/body_font"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📋"
+                            android:textSize="32sp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mis Pedidos"
+                            android:textStyle="bold"
+                            android:textColor="@color/burgundy_900"
+                            android:fontFamily="@font/title_font"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardDeposit"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="💳"
+                            android:textSize="32sp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pagos"
+                            android:textStyle="bold"
+                            android:textColor="@color/burgundy_900"
+                            android:fontFamily="@font/title_font"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieBird"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            app:lottie_rawRes="@raw/blue_bird_waiting"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:layout_marginBottom="24dp"/>
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cerrar Sesión"
+            android:background="@android:color/transparent"
+            android:textColor="#B0FFFFFF"
+            android:fontFamily="@font/body_font"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,118 +1,139 @@
 package com.B.carrasco.burgerapp.activities;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.B.carrasco.burgerapp.R;
-import com.B.carrasco.burgerapp.database.DatabaseHelper;
-import com.B.carrasco.burgerapp.models.User;
-import java.util.regex.Pattern;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
+
+    // Agregamos los nuevos campos
     private EditText etUsername, etPassword, etEmail, etPhone, etAddress;
     private Button btnRegister;
-    private DatabaseHelper dbHelper;
+    private TextView tvGoToLogin;
+
+    // Firebase
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Cambiar al layout mejorado
-        setContentView(R.layout.activity_register_improved);
+        setContentView(R.layout.activity_register);
 
-        dbHelper = new DatabaseHelper(this);
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
         initViews();
         setupClickListeners();
     }
 
     private void initViews() {
         etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
-        etPhone = findViewById(R.id.etPhone);
-        etAddress = findViewById(R.id.etAddress);
+        etPhone = findViewById(R.id.etPhone);       // Nuevo
+        etAddress = findViewById(R.id.etAddress);   // Nuevo
+        etPassword = findViewById(R.id.etPassword);
         btnRegister = findViewById(R.id.btnRegister);
+        tvGoToLogin = findViewById(R.id.tvGoToLogin);
     }
 
     private void setupClickListeners() {
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerUser();
-            }
-        });
+        btnRegister.setOnClickListener(v -> registerUserInCloud());
+
+        // Volver al login de forma segura
+        tvGoToLogin.setOnClickListener(v -> finish());
     }
 
-    private void registerUser() {
+    private void registerUserInCloud() {
         String username = etUsername.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
         String address = etAddress.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
 
-        // Validaciones
-        if (username.isEmpty() || password.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty()) {
-            Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
+        // Validaciones completas
+        if (TextUtils.isEmpty(username)) {
+            etUsername.setError("Nombre requerido");
             return;
         }
-
-        if (username.length() < 3) {
-            Toast.makeText(this, "Usuario debe tener al menos 3 caracteres", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(email)) {
+            etEmail.setError("Email requerido");
             return;
         }
-
+        if (TextUtils.isEmpty(phone)) {
+            etPhone.setError("Teléfono requerido"); // Validación nueva
+            return;
+        }
+        if (TextUtils.isEmpty(address)) {
+            etAddress.setError("Dirección requerida"); // Validación nueva
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            etPassword.setError("Contraseña requerida");
+            return;
+        }
         if (password.length() < 6) {
-            Toast.makeText(this, "Contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
+            etPassword.setError("Mínimo 6 caracteres");
             return;
         }
 
-        if (!isValidEmail(email)) {
-            Toast.makeText(this, "Email inválido", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        Toast.makeText(this, "Creando cuenta...", Toast.LENGTH_SHORT).show();
+        btnRegister.setEnabled(false);
 
-        if (!isValidPhone(phone)) {
-            Toast.makeText(this, "Teléfono inválido. Use formato: +56912345678", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Verificar si usuario ya existe
-        if (dbHelper.userExists(username)) {
-            Toast.makeText(this, "Usuario ya existe", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Crear usuario
-        User user = new User(username, password, email, "client");
-        user.setPhone(phone);
-        user.setAddress(address);
-
-        long result = dbHelper.insertUser(user);
-
-        if (result != -1) {
-            Toast.makeText(this, "¡Registro exitoso! Ahora puedes iniciar sesión", Toast.LENGTH_SHORT).show();
-            finish();
-        } else {
-            Toast.makeText(this, "Error en el registro", Toast.LENGTH_SHORT).show();
-        }
+        // 1. Crear usuario en Auth (Solo usa email y pass)
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // 2. Guardar TODOS los datos (incluyendo dirección y teléfono) en Firestore
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        saveUserExtras(user, username, email, phone, address);
+                    } else {
+                        btnRegister.setEnabled(true);
+                        String error = task.getException() != null ? task.getException().getMessage() : "Error desconocido";
+                        Toast.makeText(RegisterActivity.this, "Error: " + error, Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
-    private boolean isValidEmail(String email) {
-        Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
-        return pattern.matcher(email).matches();
-    }
+    private void saveUserExtras(FirebaseUser user, String username, String email, String phone, String address) {
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("username", username);
+        userMap.put("email", email);
+        userMap.put("phone", phone);        // Guardamos teléfono
+        userMap.put("address", address);    // Guardamos dirección
+        userMap.put("role", "client");
+        userMap.put("createdAt", System.currentTimeMillis());
 
-    private boolean isValidPhone(String phone) {
-        // Formato chileno: +56912345678
-        return phone.matches("^\\+569[0-9]{8}$");
-    }
+        db.collection("users").document(user.getUid())
+                .set(userMap)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(RegisterActivity.this, "¡Bienvenido vecino!", Toast.LENGTH_LONG).show();
 
-    // Método para el onClick del enlace "Iniciar sesión"
-    public void goToLogin(View view) {
-        finish();
+                    Intent intent = new Intent(RegisterActivity.this, ClientMainActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    // Si falla la base de datos, limpiamos el Auth para evitar inconsistencias
+                    user.delete();
+                    btnRegister.setEnabled(true);
+                    Toast.makeText(RegisterActivity.this, "Error guardando datos. Intenta de nuevo.", Toast.LENGTH_SHORT).show();
+                });
     }
 }

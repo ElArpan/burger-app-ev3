@@ -1,35 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="12dp"
+    app:cardBackgroundColor="@android:color/white">
 
-    <CheckBox
-        android:id="@+id/cbDialogMayo"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mayonesa"
-        android:fontFamily="@font/poppins_regular"/>
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-    <CheckBox
-        android:id="@+id/cbDialogKetchup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ketchup"
-        android:fontFamily="@font/poppins_regular"/>
+        <FrameLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/input_rounded"
+            android:backgroundTint="#FAFAFA"
+            android:layout_marginBottom="16dp">
 
-    <CheckBox
-        android:id="@+id/cbDialogMustard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mostaza"
-        android:fontFamily="@font/poppins_regular"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_sauces_premium"
+                android:layout_gravity="center"/>
+        </FrameLayout>
 
-    <CheckBox
-        android:id="@+id/cbDialogAji"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ají"
-        android:fontFamily="@font/poppins_regular"/>
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="El Toque Final"
+            android:textSize="24sp"
+            android:fontFamily="@font/title_font"
+            android:textStyle="bold"
+            android:textColor="@color/burgundy_900"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecciona tus salsas gratis"
+            android:textSize="14sp"
+            android:fontFamily="@font/body_font"
+            android:textColor="#757575"
+            android:layout_marginBottom="24dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
+
+            <CheckBox
+                android:id="@+id/cbDialogMayo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mayonesa"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:paddingStart="8dp"
+                android:buttonTint="@color/burgundy_700"
+                android:fontFamily="@font/body_font"/>
+
+            <CheckBox
+                android:id="@+id/cbDialogKetchup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ketchup"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:paddingStart="8dp"
+                android:buttonTint="@color/burgundy_700"
+                android:fontFamily="@font/body_font"/>
+
+            <CheckBox
+                android:id="@+id/cbDialogMustard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mostaza"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:paddingStart="8dp"
+                android:buttonTint="@color/burgundy_700"
+                android:fontFamily="@font/body_font"/>
+
+            <CheckBox
+                android:id="@+id/cbDialogAji"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ají Chileno"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:paddingStart="8dp"
+                android:buttonTint="@color/burgundy_700"
+                android:fontFamily="@font/body_font"/>
+
+            <CheckBox
+                android:id="@+id/cbDialogGarlic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Salsa de Ajo"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:paddingStart="8dp"
+                android:buttonTint="@color/burgundy_700"
+                android:fontFamily="@font/body_font"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnConfirmSauces"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="LISTO, AGREGAR"
+            android:backgroundTint="@color/burgundy_700"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/title_font"
+            app:cornerRadius="12dp"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

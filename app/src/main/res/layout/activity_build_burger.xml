@@ -3,223 +3,140 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient"
-    android:padding="16dp">
+    android:background="@drawable/bg_burgundy_gold_gradient_old">
 
-    <!-- Top bar with Lottie + title -->
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="8dp">
-
-        <!-- Lottie animation (welcome banner) -->
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieWelcome"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            app:lottie_rawRes="@raw/loading_anim"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true" />
-
-        <TextView
-            android:id="@+id/tvHeader"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:text="🍔 Construye tu hamburguesa"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins_bold"
-            android:textColor="@color/burgundy_900" />
-    </LinearLayout>
-
-    <!-- Contenedor principal -->
-    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="Diseña tu Sabor"
+            android:textColor="@color/gold_light"
+            android:textSize="28sp"
+            android:gravity="center"
+            android:fontFamily="@font/title_font"
+            android:layout_marginBottom="20dp"/>
 
-            <!-- Card: Tipo de carne -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
-                app:cardUseCompatPadding="true">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@android:color/white">
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🍖 Tipo de carne"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="@color/burgundy_900"/>
-
-                    <RadioGroup
-                        android:id="@+id/rgMeatType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp">
-
-                        <RadioButton
-                            android:id="@+id/rbTraditional"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Tradicional"
-                            android:checked="true"
-                            android:fontFamily="@font/poppins_regular"/>
-
-                        <RadioButton
-                            android:id="@+id/rbBarbecue"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Barbecue"
-                            android:fontFamily="@font/poppins_regular"/>
-                    </RadioGroup>
-
-                    <!-- Double patty checkbox (opcional) -->
-                    <CheckBox
-                        android:id="@+id/cbDoublePatty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Doble hamburguesa (opcional) - $1200"
-                        android:layout_marginTop="12dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:textColor="@color/burgundy_700"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Ingredientes -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Selecciona ingredientes extra"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="@color/burgundy_900"/>
-
-                    <ListView
-                        android:id="@+id/lvIngredients"
-                        android:layout_width="match_parent"
-                        android:layout_height="240dp"
-                        android:choiceMode="multipleChoice"
-                        android:divider="@android:color/darker_gray"
-                        android:dividerHeight="1dp"
-                        android:layout_marginTop="8dp"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Resumen y envío -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:cardElevation="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Resumen"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/poppins_bold"
-                            android:textColor="@color/burgundy_900"/>
-
-                        <TextView
-                            android:id="@+id/tvSelectedCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ingredientes: 0"
-                            android:fontFamily="@font/poppins_regular"
-                            android:textColor="@color/muted_text"/>
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tvTotalPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total: $2000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="@color/gold_700"
-                        android:layout_marginTop="8dp"/>
-
-                    <Button
-                        android:id="@+id/btnCreateBurger"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="📋 Ver resumen y enviar pedido"
-                        android:layout_marginTop="12dp"
-                        android:backgroundTint="@color/burgundy_700"
-                        android:textColor="@color/surface"
-                        android:fontFamily="@font/poppins_bold"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Footer Lottie small -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="18dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottieAccessGift"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    app:lottie_rawRes="@raw/loading_anim"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¿Quieres tu hamburguesa a la parrilla con salsa?"
+                    android:textSize="16sp"
+                    android:textColor="@color/burgundy_900"
+                    android:fontFamily="@font/body_font"
+                    android:textStyle="bold"/>
+
+                <RadioGroup
+                    android:id="@+id/rgMeatType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <RadioButton
+                        android:id="@+id/rbTraditional"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tradicional"
+                        android:checked="true"
+                        android:fontFamily="@font/body_font"/>
+
+                    <RadioButton
+                        android:id="@+id/rbBarbecue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BBQ"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/body_font"/>
+
+                    <RadioButton
+                        android:id="@+id/rbSpicy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Picante 🔥"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/body_font"/>
+                </RadioGroup>
+
+                <CheckBox
+                    android:id="@+id/cbDoublePatty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Doble Hamburguesa (+$1200) - ¡Incluye 3 ingredientes gratis!"
+                    android:textColor="#333"
+                    android:fontFamily="@font/body_font"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#EEE"
+                    android:layout_marginVertical="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Selecciona tus ingredientes"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/body_font"
+                    android:layout_marginBottom="8dp"/>
+
+                <ListView
+                    android:id="@+id/lvIngredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:dividerHeight="1dp"
+                    android:divider="#F0F0F0"/>
+
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <View android:layout_width="match_parent" android:layout_height="24dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/tvTotalPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total: $2000"
+                android:textColor="@color/gold_light"
+                android:textSize="24sp"
+                android:gravity="end"
+                android:fontFamily="@font/title_font"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/btnCreateBurger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agregar Salsas y Continuar ➜"
+                android:backgroundTint="@color/gold_500"
+                android:textColor="@color/burgundy_900"
+                android:padding="16dp"
+                android:fontFamily="@font/title_font"
+                android:textStyle="bold"/>
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

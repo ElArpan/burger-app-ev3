@@ -13,7 +13,6 @@
         android:gravity="center"
         android:padding="24dp">
 
-        <!-- Logo/Animación -->
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieWelcome"
             android:layout_width="200dp"
@@ -23,88 +22,95 @@
             app:lottie_loop="true"
             android:layout_marginBottom="20dp" />
 
-        <!-- Título -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bienvenido a BurgerApp"
             android:textColor="@color/gold_light"
-            android:textSize="26sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:layout_marginBottom="30dp"
-            android:fontFamily="@font/poppins_bold" />
+            android:fontFamily="@font/title_font" />
 
-        <!-- Card de Login -->
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/card_rounded_white"
-            android:padding="24dp"
-            android:elevation="8dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/white"
             android:layout_marginBottom="20dp">
 
-            <!-- Campos de Login -->
-            <EditText
-                android:id="@+id/etUsername"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:hint="Usuario"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:background="@drawable/input_rounded"
-                android:textColor="@color/burgundy_900"
-                android:textColorHint="#888888"
-                android:layout_marginBottom="16dp"
-                android:drawableStart="@drawable/ic_user"
-                android:drawablePadding="12dp"
-                android:fontFamily="@font/poppins_regular"
-                android:imeOptions="actionNext"
-                android:maxLines="1" />
-
-            <EditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:hint="Contraseña"
-                android:inputType="textPassword"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:background="@drawable/input_rounded"
-                android:textColor="@color/burgundy_900"
-                android:textColorHint="#888888"
-                android:layout_marginBottom="16dp"
-                android:drawableStart="@drawable/ic_password"
-                android:drawablePadding="12dp"
-                android:fontFamily="@font/poppins_regular"
-                android:imeOptions="actionDone" />
-
-            <!-- Botón Login -->
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="INICIAR SESIÓN"
-                android:textSize="16sp"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:backgroundTint="@color/gold_light"
-                android:stateListAnimator="@null"
-                android:elevation="4dp"
-                android:fontFamily="@font/poppins_bold" />
-
-            <!-- ProgressBar para loading -->
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:visibility="gone" />
+                android:orientation="vertical"
+                android:padding="24dp">
 
-        </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    app:boxStrokeColor="@color/burgundy_900"
+                    app:hintTextColor="@color/burgundy_900"
+                    app:startIconDrawable="@drawable/ic_user"
+                    app:startIconTint="@color/burgundy_900"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginBottom="16dp">
 
-        <!-- Separador -->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/burgundy_900"
+                        android:fontFamily="@font/body_font"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contraseña"
+                    app:boxStrokeColor="@color/burgundy_900"
+                    app:hintTextColor="@color/burgundy_900"
+                    app:startIconDrawable="@drawable/ic_password"
+                    app:startIconTint="@color/burgundy_900"
+                    app:endIconMode="password_toggle"
+                    app:endIconTint="@color/burgundy_900"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginBottom="24dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@color/burgundy_900"
+                        android:fontFamily="@font/body_font"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:text="INICIAR SESIÓN"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/burgundy_900"
+                    app:cornerRadius="8dp"
+                    android:fontFamily="@font/title_font" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -112,7 +118,6 @@
             android:alpha="0.3"
             android:layout_marginVertical="12dp" />
 
-        <!-- Opción de Registro -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,7 +125,7 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="@font/poppins_regular" />
+            android:fontFamily="@font/body_font" />
 
         <Button
             android:id="@+id/btnRegister"
@@ -130,11 +135,9 @@
             android:textSize="16sp"
             android:textColor="@color/gold_light"
             android:textStyle="bold"
-            android:background="@drawable/button_outline_gold"
-            android:stateListAnimator="@null"
-            android:fontFamily="@font/poppins_bold" />
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/title_font" />
 
-        <!-- Enlace para recuperar contraseña -->
         <TextView
             android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
@@ -145,45 +148,20 @@
             android:layout_marginTop="16dp"
             android:clickable="true"
             android:focusable="true"
-            android:fontFamily="@font/poppins_regular" />
+            android:fontFamily="@font/body_font" />
 
-        <!-- Texto para modo invitado -->
         <TextView
             android:id="@+id/tvSkipForNow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Continuar como invitado"
             android:textColor="#80FFFFFF"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:layout_marginTop="8dp"
             android:clickable="true"
             android:focusable="true"
-            android:fontFamily="@font/poppins_regular" />
-
-        <!-- Texto informativo -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🍔 Pedidos de hamburguesas personalizadas"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:alpha="0.8"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:fontFamily="@font/poppins_regular" />
-
-        <!-- Info para vecinos del condominio -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="⚠️ Solo para residentes del condominio"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
             android:padding="8dp"
-            android:background="#40000000"
-            android:fontFamily="@font/poppins_regular" />
+            android:fontFamily="@font/body_font" />
 
     </LinearLayout>
 </ScrollView>

@@ -5,24 +5,39 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.B.carrasco.burgerapp.R;
-import android.graphics.Color;
+import com.B.carrasco.burgerapp.utils.CartManager; // Importamos el carrito
 
 public class DepositUploadActivity extends AppCompatActivity {
-    private Button btnSelectPhoto, btnSubmit, btnChangePhoto;
+
+    private Button btnSelectPhoto, btnSubmit, btnChangePhoto, btnCancel;
     private ImageView ivDeposit;
     private TextView tvStatus, tvFileName;
     private LinearLayout llPhotoSelected;
+
     private static final int REQUEST_IMAGE_GALLERY = 100;
     private Uri selectedImageUri;
+    private double totalAmount = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deposit_upload);
+        setContentView(R.layout.activity_deposit_upload); // Asegúrate que sea el XML correcto
+
+        // Recibir el monto total si viene del intent
+        totalAmount = getIntent().getDoubleExtra("TOTAL_AMOUNT", 0.0);
+        if (totalAmount == 0) {
+            totalAmount = CartManager.getInstance().getTotalOrderPrice();
+        }
 
         initViews();
         setupClickListeners();
@@ -33,33 +48,25 @@ public class DepositUploadActivity extends AppCompatActivity {
         btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
         btnSubmit = findViewById(R.id.btnSubmit);
         btnChangePhoto = findViewById(R.id.btnChangePhoto);
+        btnCancel = findViewById(R.id.btnCancel); // Agregué el botón cancelar del XML nuevo
         ivDeposit = findViewById(R.id.ivDeposit);
-        tvStatus = findViewById(R.id.tvStatus);
-        tvFileName = findViewById(R.id.tvFileName);
+        // Nota: tvStatus y tvFileName no están en el XML nuevo "Premium" que te pasé antes (el que tenía Lottie),
+        // pero si usas el XML viejo, déjalos. Si usas el nuevo, puedes borrarlos o agregarlos al XML.
+        // Para que compile, asumiré que los agregaste o usas el XML mixto.
+        // Si no los encuentras, comenta estas líneas:
+        // tvStatus = findViewById(R.id.tvStatus);
+        // tvFileName = findViewById(R.id.tvFileName);
+
         llPhotoSelected = findViewById(R.id.llPhotoSelected);
     }
 
     private void setupClickListeners() {
-        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
+        btnSelectPhoto.setOnClickListener(v -> openGallery());
+        btnChangePhoto.setOnClickListener(v -> openGallery());
 
-        btnChangePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
+        btnCancel.setOnClickListener(v -> finish()); // Volver atrás
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadDeposit();
-            }
-        });
+        btnSubmit.setOnClickListener(v -> uploadDeposit());
     }
 
     private void openGallery() {
@@ -74,30 +81,24 @@ public class DepositUploadActivity extends AppCompatActivity {
             return;
         }
 
-        tvStatus.setText("🔄 Subiendo comprobante...");
-        tvStatus.setTextColor(getResources().getColor(R.color.info_blue));
+        // Aquí iría el código real de Firebase Storage
+        // Por ahora simulamos la carga
         btnSubmit.setEnabled(false);
+        btnSubmit.setText("Enviando...");
 
-        // Simulación de subida a API (2 segundos)
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        tvStatus.setText("✅ Comprobante subido exitosamente");
-                        tvStatus.setTextColor(getResources().getColor(R.color.success_green));
-                        Toast.makeText(DepositUploadActivity.this,
-                                "Comprobante enviado para verificación", Toast.LENGTH_LONG).show();
+        new android.os.Handler().postDelayed(() -> {
+            Toast.makeText(DepositUploadActivity.this, "✅ ¡Pedido Enviado con éxito!", Toast.LENGTH_LONG).show();
 
-                        // Volver después de 2 segundos
-                        new android.os.Handler().postDelayed(
-                                new Runnable() {
-                                    public void run() {
-                                        finish();
-                                    }
-                                },
-                                2000);
-                    }
-                },
-                2000);
+            // 1. Limpiar el carrito porque ya se compró
+            CartManager.getInstance().clearCart();
+
+            // 2. Redirigir al inicio (ClientMain) limpiando historial de pantallas
+            Intent intent = new Intent(DepositUploadActivity.this, ClientMainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+
+        }, 2000);
     }
 
     @Override
@@ -107,59 +108,25 @@ public class DepositUploadActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
             if (selectedImageUri != null) {
-                // Mostrar imagen
                 ivDeposit.setImageURI(selectedImageUri);
-
-                // Mostrar nombre del archivo (si es posible)
-                String fileName = getFileNameFromUri(selectedImageUri);
-                tvFileName.setText("Archivo: " + fileName);
-
-                // Actualizar UI
                 updateUI();
-
-                tvStatus.setText("🖼️ Comprobante seleccionado - Listo para enviar");
-                tvStatus.setTextColor(getResources().getColor(R.color.success_green));
             }
         }
-    }
-
-    private String getFileNameFromUri(Uri uri) {
-        String result = null;
-        if (uri.getScheme().equals("content")) {
-            try {
-                android.database.Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-                if (cursor != null && cursor.moveToFirst()) {
-                    int nameIndex = cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME);
-                    if (nameIndex != -1) {
-                        result = cursor.getString(nameIndex);
-                    }
-                    cursor.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        if (result == null) {
-            result = uri.getLastPathSegment();
-        }
-        return result != null ? result : "comprobante.jpg";
     }
 
     private void updateUI() {
         boolean hasPhoto = selectedImageUri != null;
 
         if (hasPhoto) {
-            // Foto seleccionada: mostrar panel de foto y botón cambiar
             llPhotoSelected.setVisibility(View.VISIBLE);
             btnSelectPhoto.setVisibility(View.GONE);
             btnSubmit.setEnabled(true);
-            btnSubmit.setBackgroundTintList(getResources().getColorStateList(R.color.success_green));
+            btnSubmit.setAlpha(1.0f);
         } else {
-            // Sin foto: mostrar solo botón seleccionar
             llPhotoSelected.setVisibility(View.GONE);
             btnSelectPhoto.setVisibility(View.VISIBLE);
             btnSubmit.setEnabled(false);
-            btnSubmit.setBackgroundTintList(getResources().getColorStateList(R.color.gray));
+            btnSubmit.setAlpha(0.5f);
         }
     }
 }
