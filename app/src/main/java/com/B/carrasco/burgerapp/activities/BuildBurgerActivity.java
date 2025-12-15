@@ -1,7 +1,10 @@
 package com.B.carrasco.burgerapp.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,6 +21,8 @@ import com.B.carrasco.burgerapp.models.Burger;
 import com.B.carrasco.burgerapp.models.Ingredient;
 import com.B.carrasco.burgerapp.utils.CartManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,18 +38,19 @@ public class BuildBurgerActivity extends AppCompatActivity {
     private CheckBox cbDoublePatty;
     private RadioGroup rgMeatFlavor;
 
-    // Datos
     private List<Ingredient> allIngredients;
-    // Usamos un Mapa para guardar CANTIDAD de cada ingrediente (Ej: Queso -> 3)
     private Map<String, Integer> selectedIngredientsQty = new HashMap<>();
+    private FirebaseFirestore db;
 
-    // Precios y Reglas
-    private final double BASE_PRICE = 2000.0;
-    private final double EXTRA_PATTY_PRICE = 1200.0;
-    private final double EXTRA_INGREDIENT_PRICE = 500.0;
+    // --- TABLA DE PRECIOS ---
+    private final double BASE_PRICE = 2500.0;
+    private final double DOUBLE_PATTY_PRICE = 1200.0;
+    private final double EXTRA_SINGLE_PRICE = 300.0;
+    private final double EXTRA_PROMO_PRICE = 500.0; // 2 x $500
+    private final int MAX_INGREDIENTS = 8;
 
     private double currentBurgerPrice = 0.0;
-    private String meatFlavor = "Tradicional"; // Default
+    private String meatFlavor = "Tradicional";
     private final List<String> selectedSauces = new ArrayList<>();
 
     @Override
@@ -52,10 +58,11 @@ public class BuildBurgerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_build_burger);
 
+        db = FirebaseFirestore.getInstance();
         initViews();
-        loadIngredientsData();
+        fetchIngredientsFromFirebase();
         setupInteractions();
-        calculatePrice(); // Cálculo inicial
+        calculatePrice();
     }
 
     private void initViews() {
@@ -66,74 +73,93 @@ public class BuildBurgerActivity extends AppCompatActivity {
         rgMeatFlavor = findViewById(R.id.rgMeatType);
     }
 
-    private void loadIngredientsData() {
-        // Lista de ingredientes
-        allIngredients = Arrays.asList(
-                new Ingredient("Queso mantecoso", 0, "queso"),
-                new Ingredient("Queso cheddar", 0, "queso"),
-                new Ingredient("Papas hilo", 0, "extras"),
-                new Ingredient("Palta", 0, "vegetales"),
-                new Ingredient("Jamón pierna", 0, "carnes"),
-                new Ingredient("Cebolla frita", 0, "vegetales"),
-                new Ingredient("Tomate", 0, "vegetales"),
-                new Ingredient("Lechuga", 0, "vegetales"),
-                new Ingredient("Tocino", 0, "carnes"),
-                new Ingredient("Champiñón", 0, "vegetales"),
-                new Ingredient("Aros de Cebolla", 0, "extras"),
-                new Ingredient("Huevo frito", 0, "extras")
-        );
+    private void fetchIngredientsFromFirebase() {
+        db.collection("ingredients")
+                .whereEqualTo("available", true)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        allIngredients = new ArrayList<>();
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            Ingredient ing = doc.toObject(Ingredient.class);
+                            ing.setId(doc.getId());
+                            allIngredients.add(ing);
+                        }
+                        updateAdapter();
+                    } else {
+                        loadFallbackIngredients();
+                    }
+                });
+    }
 
-        // Configuramos el adaptador personalizado
+    private void loadFallbackIngredients() {
+        allIngredients = Arrays.asList(
+                new Ingredient("Queso Mantecoso", true),
+                new Ingredient("Tomate", true),
+                new Ingredient("Lechuga", true),
+                new Ingredient("Palta", true)
+        );
+        updateAdapter();
+    }
+
+    private void updateAdapter() {
         CustomIngredientAdapter adapter = new CustomIngredientAdapter(this, allIngredients, selectedIngredientsQty);
         lvIngredients.setAdapter(adapter);
     }
 
     private void setupInteractions() {
-        // 1. Selección de Sabor de Carne
         rgMeatFlavor.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.rbTraditional) meatFlavor = "Tradicional";
-            else if (checkedId == R.id.rbBarbecue) meatFlavor = "Barbecue";
+            else if (checkedId == R.id.rbBarbecue) meatFlavor = "BBQ";
             else if (checkedId == R.id.rbSpicy) meatFlavor = "Picante";
         });
 
-        // 2. Doble Hamburguesa
         cbDoublePatty.setOnCheckedChangeListener((buttonView, isChecked) -> calculatePrice());
 
-        // 3. Selección de Ingredientes
         lvIngredients.setOnItemClickListener((parent, view, position, id) -> {
             Ingredient ing = allIngredients.get(position);
-
-            // Lógica especial para Quesos (Multiplicadores)
             if (ing.getName().toLowerCase().contains("queso")) {
                 showCheeseQuantityDialog(ing);
             } else {
-                // Ingredientes normales (On/Off)
-                if (selectedIngredientsQty.containsKey(ing.getName())) {
-                    selectedIngredientsQty.remove(ing.getName());
-                } else {
-                    selectedIngredientsQty.put(ing.getName(), 1);
-                }
-                calculatePrice();
-                // Actualizar vista visualmente
-                ((CustomIngredientAdapter)lvIngredients.getAdapter()).notifyDataSetChanged();
+                toggleIngredient(ing.getName());
             }
         });
 
-        // 4. Botón "Agregar Salsas"
         btnProceedToSauces.setOnClickListener(v -> showSaucesDialog());
     }
 
-    private void showCheeseQuantityDialog(Ingredient cheese) {
-        final String[] options = {"Normal (x1)", "Extra (x2)", "Triple (x3)", "Cuádruple (x4)", "Quíntuple (x5)", "Quitar"};
+    private void toggleIngredient(String name) {
+        if (selectedIngredientsQty.containsKey(name)) {
+            selectedIngredientsQty.remove(name);
+        } else {
+            if (getTotalIngredientCount() >= MAX_INGREDIENTS) {
+                Toast.makeText(this, "⚠️ Máximo " + MAX_INGREDIENTS + " ingredientes permitidos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            selectedIngredientsQty.put(name, 1);
+        }
+        calculatePrice();
+        ((CustomIngredientAdapter)lvIngredients.getAdapter()).notifyDataSetChanged();
+    }
 
+    private void showCheeseQuantityDialog(Ingredient cheese) {
+        final String[] options = {"Normal (x1)", "Extra (x2)", "Triple (x3)", "Quitar"};
         new MaterialAlertDialogBuilder(this)
                 .setTitle("Cantidad de " + cheese.getName())
                 .setItems(options, (dialog, which) -> {
-                    if (which == 5) { // Opción Quitar
+                    if (which == 3) {
                         selectedIngredientsQty.remove(cheese.getName());
                     } else {
-                        // which es 0 para x1, 1 para x2, etc.
-                        selectedIngredientsQty.put(cheese.getName(), which + 1);
+                        int newQty = which + 1;
+                        int currentTotal = getTotalIngredientCount();
+                        int currentCheeseQty = selectedIngredientsQty.getOrDefault(cheese.getName(), 0);
+                        int netAddition = newQty - currentCheeseQty;
+
+                        if (currentTotal + netAddition > MAX_INGREDIENTS) {
+                            Toast.makeText(this, "⚠️ Excede el límite de 8 ingredientes", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        selectedIngredientsQty.put(cheese.getName(), newQty);
                     }
                     calculatePrice();
                     ((CustomIngredientAdapter)lvIngredients.getAdapter()).notifyDataSetChanged();
@@ -141,101 +167,95 @@ public class BuildBurgerActivity extends AppCompatActivity {
                 .show();
     }
 
-    // --- LÓGICA DE PRECIOS ---
+    private int getTotalIngredientCount() {
+        int total = 0;
+        for (int qty : selectedIngredientsQty.values()) total += qty;
+        return total;
+    }
+
     private void calculatePrice() {
         double total = BASE_PRICE;
-
-        // 1. Costo Carne Extra
         boolean isDouble = cbDoublePatty.isChecked();
-        if (isDouble) {
-            total += EXTRA_PATTY_PRICE;
-        }
+        if (isDouble) total += DOUBLE_PATTY_PRICE;
 
-        // 2. Lógica de Ingredientes Gratis y Extras
         int freeIngredientsLimit = isDouble ? 3 : 2;
+        int totalSelected = getTotalIngredientCount();
+        int payableIngredients = totalSelected - freeIngredientsLimit;
 
-        // Contar total de unidades de ingredientes seleccionados
-        int totalIngredientsCount = 0;
-        for (int qty : selectedIngredientsQty.values()) {
-            totalIngredientsCount += qty;
-        }
-
-        // Calcular costo extra si supera el límite gratuito
-        if (totalIngredientsCount > freeIngredientsLimit) {
-            int extraCount = totalIngredientsCount - freeIngredientsLimit;
-            total += (extraCount * EXTRA_INGREDIENT_PRICE);
+        if (payableIngredients > 0) {
+            int pairs = payableIngredients / 2;
+            int remainder = payableIngredients % 2;
+            double extrasCost = (pairs * EXTRA_PROMO_PRICE) + (remainder * EXTRA_SINGLE_PRICE);
+            total += extrasCost;
         }
 
         currentBurgerPrice = total;
-        tvTotalPrice.setText("Total Burger: $" + (int)currentBurgerPrice);
+        tvTotalPrice.setText("Total: $" + (int)currentBurgerPrice);
     }
 
     private void showSaucesDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_sauces, null);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_sauces, null);
         builder.setView(dialogView);
 
         CheckBox cbMayo = dialogView.findViewById(R.id.cbDialogMayo);
         CheckBox cbKetchup = dialogView.findViewById(R.id.cbDialogKetchup);
         CheckBox cbMustard = dialogView.findViewById(R.id.cbDialogMustard);
-        CheckBox cbAji = dialogView.findViewById(R.id.cbDialogAji);
-        CheckBox cbGarlic = dialogView.findViewById(R.id.cbDialogGarlic);
-
+        CheckBox cbSpicy = dialogView.findViewById(R.id.cbDialogSpicy);
         Button btnConfirmSauces = dialogView.findViewById(R.id.btnConfirmSauces);
+
         AlertDialog dialog = builder.create();
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        }
+        if (dialog.getWindow() != null) dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         btnConfirmSauces.setOnClickListener(v -> {
             selectedSauces.clear();
-            if (cbMayo.isChecked()) selectedSauces.add("Mayonesa");
-            if (cbKetchup.isChecked()) selectedSauces.add("Ketchup");
-            if (cbMustard.isChecked()) selectedSauces.add("Mostaza");
-            if (cbAji.isChecked()) selectedSauces.add("Ají");
-            if (cbGarlic.isChecked()) selectedSauces.add("Salsa Ajo");
-
+            if (cbMayo.isChecked()) selectedSauces.add("Mayonesa Casera");
+            if (cbKetchup.isChecked()) selectedSauces.add("Ketchup Premium");
+            if (cbMustard.isChecked()) selectedSauces.add("Mostaza Selección");
+            if (cbSpicy.isChecked()) selectedSauces.add("Salsa Picante");
             dialog.dismiss();
-            showFinalOptionsDialog(); // Ir al paso final
+            showFinalOptionsDialog();
         });
-
         dialog.show();
     }
 
     private void showFinalOptionsDialog() {
-        // Crear lista visual de ingredientes para guardar
         List<Ingredient> finalIngs = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : selectedIngredientsQty.entrySet()) {
             String name = entry.getKey();
             int qty = entry.getValue();
             String displayName = (qty > 1) ? name + " (x" + qty + ")" : name;
-            finalIngs.add(new Ingredient(displayName, 0, "extra"));
+            finalIngs.add(new Ingredient(displayName, true));
         }
 
-        // Crear objeto Burger
+        if (!selectedSauces.isEmpty()) {
+            StringBuilder saucesStr = new StringBuilder("Salsas: ");
+            for (String sauce : selectedSauces) saucesStr.append(sauce).append(", ");
+            String finalSauces = saucesStr.substring(0, saucesStr.length() - 2);
+            finalIngs.add(new Ingredient(finalSauces, true));
+        }
+
         Burger newBurger = new Burger();
-        newBurger.setName("Hamburguesa " + meatFlavor + (cbDoublePatty.isChecked() ? " Doble" : " Simple"));
+        newBurger.setName("Burger " + meatFlavor + (cbDoublePatty.isChecked() ? " Doble" : " Simple"));
         newBurger.setIngredients(finalIngs);
         newBurger.setTotalPrice(currentBurgerPrice);
 
-        // Guardar en Carrito
         CartManager.getInstance().addBurger(newBurger);
 
-        // Preguntar Siguiente Acción
         new MaterialAlertDialogBuilder(this)
-                .setTitle("🍔 ¡Hamburguesa lista!")
-                .setMessage("Llevas " + CartManager.getInstance().getOrder().size() + " hamburguesa(s).\nTotal parcial: $" + (int)CartManager.getInstance().getTotalOrderPrice())
+                .setTitle("🍔 ¡Lista para la plancha!")
+                .setMessage("Tu creación está lista.\nTotal parcial: $" + (int)CartManager.getInstance().getTotalOrderPrice())
                 .setCancelable(false)
-                .setPositiveButton("PAGAR AHORA ➔", (dialog, which) -> {
-                    // CAMBIO: Ahora vamos a PaymentMethodActivity para elegir medio de pago
-                    Intent intent = new Intent(BuildBurgerActivity.this, PaymentMethodActivity.class);
+                .setPositiveButton("CONTINUAR ➔", (dialog, which) -> {
+                    // CAMBIO AQUÍ: Ahora vamos a Delivery Options
+                    Intent intent = new Intent(BuildBurgerActivity.this, DeliveryOptionsActivity.class);
                     startActivity(intent);
                     finish();
                 })
-                .setNegativeButton("➕ Agregar otra Hamburguesa", (dialog, which) -> {
-                    // Reiniciamos la actividad para armar otra
-                    recreate();
-                    Toast.makeText(this, "¡Arma la siguiente!", Toast.LENGTH_SHORT).show();
+                .setNegativeButton("➕ Crear Otra", (dialog, which) -> {
+                    Intent intent = new Intent(this, BuildBurgerActivity.class);
+                    startActivity(intent);
+                    finish();
                 })
                 .show();
     }

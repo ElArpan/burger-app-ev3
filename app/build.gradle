@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.application'
-    // AGREGA ESTA LÍNEA PARA ACTIVAR EL PLUGIN:
     id 'com.google.gms.google-services'
 }
 
@@ -10,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.B.carrasco.burgerapp"
-        minSdk 24 // Recomendado para Firebase
+        minSdk 24
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -30,22 +29,21 @@ android {
 }
 
 dependencies {
-    // Tus dependencias visuales actuales
+    // --- VISUALES Y UI ---
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.airbnb.android:lottie:6.1.0' // Para tus animaciones
+    implementation 'com.airbnb.android:lottie:6.1.0'
 
-    // --- ZONA FIREBASE (Actualizado con tus versiones) ---
-
-    // 1. La Plataforma BOM (Controla las versiones para que no choquen)
-    implementation platform('com.google.firebase:firebase-bom:34.7.0')
-
-    // 2. Autenticación (Login/Registro)
-    // No ponemos versión porque la BOM la decide
+    // --- FIREBASE (BOM controla las versiones estándar) ---
+    implementation platform('com.google.firebase:firebase-bom:33.7.0') // Actualizado a la última estable
     implementation 'com.google.firebase:firebase-auth'
-
-    // 3. Base de Datos en la Nube (Firestore)
-    // Aquí guardaremos los pedidos y usuarios para que tú los veas
     implementation 'com.google.firebase:firebase-firestore'
+
+    // AGREGADO: Storage (Para subir las fotos de los comprobantes)
+    implementation 'com.google.firebase:firebase-storage'
+
+    // --- AGREGADO: FIREBASE UI (La magia para la lista del Admin en tiempo real) ---
+    // Esta librería conecta el RecyclerView directamente a la base de datos
+    implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
 }

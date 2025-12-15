@@ -1,33 +1,24 @@
 package com.B.carrasco.burgerapp.models;
 
-public class Ingredient {
-    private int id;
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
+    private String id;
     private String name;
-    private double price;
-    private String category;
     private boolean available;
 
-    public Ingredient() {}
+    public Ingredient() {} // Constructor vacío
 
-    public Ingredient(String name, double price, String category) {
+    public Ingredient(String name, boolean available) {
         this.name = name;
-        this.price = price;
-        this.category = category;
-        this.available = true;
+        this.available = available;
     }
 
-    // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
-
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
 
     public boolean isAvailable() { return available; }
     public void setAvailable(boolean available) { this.available = available; }

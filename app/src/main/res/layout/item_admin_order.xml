@@ -3,83 +3,170 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="12dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/headerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:background="#FFC107"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvOrderStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="⏳ PENDIENTE"
+                android:textStyle="bold"
+                android:textColor="#3E2723"
+                android:fontFamily="@font/title_font"/>
+
+            <TextView
+                android:id="@+id/tvOrderTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hace 2 min"
+                android:textSize="12sp"
+                android:textColor="#3E2723"
+                android:fontFamily="@font/body_font"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvClientName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cliente: vecino@email.com"
+                android:textStyle="bold"
+                android:textColor="#5D4037"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/body_font"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#E3F2FD"
+                android:padding="8dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvDeliveryMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🛵 A DOMICILIO"
+                    android:textStyle="bold"
+                    android:textColor="#1565C0"
+                    android:fontFamily="@font/title_font"/>
+
+                <TextView
+                    android:id="@+id/tvDeliveryAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Block 12, Depto 304"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D47A1"
+                    android:fontFamily="@font/body_font"/>
+
+                <TextView
+                    android:id="@+id/tvTipInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎁 Propina: $1.000"
+                    android:textColor="#388E3C"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvOrderDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🍔 Doble Carne..."
+                android:textSize="16sp"
+                android:textColor="#212121"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/body_font"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/input_rounded"
+                android:backgroundTint="#F5F5F5"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tvPaymentMethod"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="💵 Efectivo"
+                    android:textSize="13sp"
+                    android:textColor="#388E3C"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/body_font"/>
+
+                <TextView
+                    android:id="@+id/tvTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$8.500"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#D32F2F"
+                    android:fontFamily="@font/title_font"/>
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:padding="8dp"
+            android:gravity="end">
 
-            <TextView
-                android:id="@+id/tvClientName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Juan Pérez"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#D32F2F" />
-
-            <TextView
-                android:id="@+id/tvOrderPrice"
+            <Button
+                android:id="@+id/btnViewProof"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$4.500"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#388E3C" />
+                android:text="Ver Foto"
+                android:textSize="12sp"
+                android:textColor="#1976D2"
+                android:background="@android:color/transparent"
+                android:visibility="gone"
+                android:fontFamily="@font/body_font"/>
+
+            <Button
+                android:id="@+id/btnNextStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MARCAR LISTO ➡️"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="@color/burgundy_900"
+                app:cornerRadius="8dp"
+                android:fontFamily="@font/title_font"/>
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hace 2 min"
-            android:textSize="12sp"
-            android:textColor="#757575"
-            android:layout_marginBottom="8dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#EEEEEE"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/tvBurgerDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="• Pan Clásico\n• Carne Barbecue (Doble)\n• Sin Salsas"
-            android:textSize="14sp"
-            android:textColor="#212121"
-            android:lineSpacingExtra="4dp"/>
-
-        <TextView
-            android:id="@+id/tvIngredients"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Extras: Tocino, Queso Cheddar"
-            android:textStyle="italic"
-            android:textColor="#5D4037"
-            android:layout_marginTop="8dp"/>
-
-        <Button
-            android:id="@+id/btnMarkReady"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="✅ MARCAR COMO LISTO"
-            android:backgroundTint="#FF9800"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="12dp"/>
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

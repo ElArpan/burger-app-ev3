@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
     app:cardBackgroundColor="@android:color/white">
 
     <LinearLayout
@@ -17,43 +16,21 @@
             android:id="@+id/tvDialogTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Detalles del Ingrediente"
+            android:text="Ingrediente"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/burgundy_900"
             android:fontFamily="@font/title_font"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="20dp"/>
 
         <EditText
             android:id="@+id/etIngredientName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Nombre (Ej: Queso)"
-            android:inputType="textPersonName"
+            android:hint="Nombre (ej: Tocino)"
             android:background="@drawable/input_rounded"
             android:paddingHorizontal="16dp"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="@font/body_font"/>
-
-        <EditText
-            android:id="@+id/etIngredientPrice"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Precio Extra (Ej: 300)"
-            android:inputType="number"
-            android:background="@drawable/input_rounded"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="@font/body_font"/>
-
-        <EditText
-            android:id="@+id/etIngredientCategory"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Categoría (Ej: vegetales)"
-            android:background="@drawable/input_rounded"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/body_font"/>
 
         <LinearLayout
@@ -61,8 +38,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/input_rounded"
             android:backgroundTint="#F5F5F5">
 
@@ -70,8 +47,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="¿Disponible en cocina?"
-                android:textColor="#616161"
+                android:text="¿Hay stock disponible?"
+                android:textSize="16sp"
+                android:textColor="#333"
                 android:fontFamily="@font/body_font"/>
 
             <Switch
@@ -79,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                app:thumbTint="@color/burgundy_700"
+                app:thumbTint="@color/burgundy_900"
                 app:trackTint="#906E1A26"/>
         </LinearLayout>
 
@@ -87,7 +65,7 @@
             android:id="@+id/btnSaveIngredient"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="GUARDAR"
+            android:text="GUARDAR CAMBIOS"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:backgroundTint="@color/burgundy_700"

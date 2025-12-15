@@ -1,49 +1,38 @@
 package com.B.carrasco.burgerapp.models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Burger {
-    private int id;
+public class Burger implements Serializable {
+    private String id; // Cambiado a String para compatibilidad futura con Firebase
     private String name;
-    private int userId;
+    private String userId; // Cambiado a String para Firebase Auth ID
     private double totalPrice;
     private List<Ingredient> ingredients;
 
-    // Constructores
+    // Constructor vacío (Obligatorio para Firebase)
     public Burger() {}
 
-    public Burger(String name, int userId, List<Ingredient> ingredients) {
+    // Constructor simple
+    public Burger(String name, List<Ingredient> ingredients, double totalPrice) {
         this.name = name;
-        this.userId = userId;
         this.ingredients = ingredients;
-        calculateTotalPrice();
-    }
-
-    private void calculateTotalPrice() {
-        totalPrice = 0;
-        if (ingredients != null) {
-            for (Ingredient ingredient : ingredients) {
-                totalPrice += ingredient.getPrice();
-            }
-        }
+        this.totalPrice = totalPrice;
     }
 
     // Getters y Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public int getUserId() { return userId; }
-    public void setUserId(int userId) { this.userId = userId; }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
     public double getTotalPrice() { return totalPrice; }
     public void setTotalPrice(double totalPrice) { this.totalPrice = totalPrice; }
 
     public List<Ingredient> getIngredients() { return ingredients; }
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-        calculateTotalPrice();
-    }
+    public void setIngredients(List<Ingredient> ingredients) { this.ingredients = ingredients; }
 }

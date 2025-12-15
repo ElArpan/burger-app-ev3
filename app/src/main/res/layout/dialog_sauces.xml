@@ -3,123 +3,117 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="12dp"
+    android:layout_margin="24dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="16dp"
     app:cardBackgroundColor="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/input_rounded"
-            android:backgroundTint="#FAFAFA"
-            android:layout_marginBottom="16dp">
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_sauces_premium"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="El Toque Final"
-            android:textSize="24sp"
-            android:fontFamily="@font/title_font"
-            android:textStyle="bold"
-            android:textColor="@color/burgundy_900"
-            android:layout_marginBottom="4dp"/>
+            android:background="@color/burgundy_900"
+            android:padding="20dp"
+            android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Selecciona tus salsas gratis"
-            android:textSize="14sp"
-            android:fontFamily="@font/body_font"
-            android:textColor="#757575"
-            android:layout_marginBottom="24dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✨ Selección de Salsas"
+                android:textColor="@color/gold_light"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/title_font"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="24dp">
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Elige tus acompañamientos:"
+                android:textColor="#5D4037"
+                android:textSize="14sp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/body_font"/>
 
             <CheckBox
                 android:id="@+id/cbDialogMayo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mayonesa"
+                android:text="Mayonesa Casera"
                 android:textSize="16sp"
-                android:textColor="#333333"
-                android:paddingStart="8dp"
-                android:buttonTint="@color/burgundy_700"
+                android:textColor="#3E2723"
+                android:paddingStart="12dp"
+                android:buttonTint="@color/burgundy_900"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/body_font"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" android:layout_marginBottom="8dp"/>
 
             <CheckBox
                 android:id="@+id/cbDialogKetchup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ketchup"
+                android:text="Ketchup Premium"
                 android:textSize="16sp"
-                android:textColor="#333333"
-                android:paddingStart="8dp"
-                android:buttonTint="@color/burgundy_700"
+                android:textColor="#3E2723"
+                android:paddingStart="12dp"
+                android:buttonTint="@color/burgundy_900"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/body_font"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" android:layout_marginBottom="8dp"/>
 
             <CheckBox
                 android:id="@+id/cbDialogMustard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mostaza"
+                android:text="Mostaza Selección"
                 android:textSize="16sp"
-                android:textColor="#333333"
-                android:paddingStart="8dp"
-                android:buttonTint="@color/burgundy_700"
+                android:textColor="#3E2723"
+                android:paddingStart="12dp"
+                android:buttonTint="@color/burgundy_900"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/body_font"/>
 
-            <CheckBox
-                android:id="@+id/cbDialogAji"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ají Chileno"
-                android:textSize="16sp"
-                android:textColor="#333333"
-                android:paddingStart="8dp"
-                android:buttonTint="@color/burgundy_700"
-                android:fontFamily="@font/body_font"/>
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" android:layout_marginBottom="8dp"/>
 
             <CheckBox
-                android:id="@+id/cbDialogGarlic"
+                android:id="@+id/cbDialogSpicy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Salsa de Ajo"
+                android:text="Salsa Picante de la Casa 🌶️"
                 android:textSize="16sp"
-                android:textColor="#333333"
-                android:paddingStart="8dp"
-                android:buttonTint="@color/burgundy_700"
+                android:textColor="#D32F2F"
+                android:textStyle="bold"
+                android:paddingStart="12dp"
+                android:buttonTint="@color/burgundy_900"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/body_font"/>
+
+            <Button
+                android:id="@+id/btnConfirmSauces"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="CONFIRMAR SELECCIÓN"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="@color/gold_500"
+                app:cornerRadius="10dp"
+                android:stateListAnimator="@null"
+                app:elevation="4dp"
+                android:fontFamily="@font/title_font"/>
+
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btnConfirmSauces"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="LISTO, AGREGAR"
-            android:backgroundTint="@color/burgundy_700"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/title_font"
-            app:cornerRadius="12dp"/>
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_burgundy_gold_gradient_old"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Opciones de Entrega"
+            android:textColor="@color/gold_light"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="@font/title_font"
+            android:layout_marginBottom="24dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@android:color/white"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¿Dónde entregamos?"
+                    android:textStyle="bold"
+                    android:textColor="#3E2723"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/title_font"
+                    android:layout_marginBottom="16dp"/>
+
+                <RadioGroup
+                    android:id="@+id/rgDeliveryType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/rbDelivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="🛵 A Domicilio (En tu Depto)"
+                        android:textSize="16sp"
+                        android:textColor="#333"
+                        android:padding="8dp"/>
+
+                    <RadioButton
+                        android:id="@+id/rbPickup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="🥡 Retiro en Portería (NombreAqui)"
+                        android:textSize="16sp"
+                        android:textColor="#333"
+                        android:padding="8dp"/>
+                </RadioGroup>
+
+                <LinearLayout
+                    android:id="@+id/llAddressInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="12dp"
+                    android:padding="12dp"
+                    android:background="@drawable/input_rounded"
+                    android:backgroundTint="#F5F5F5">
+
+                    <EditText
+                        android:id="@+id/etBlock"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="N° Block / Torre"
+                        android:background="@drawable/input_rounded"
+                        android:paddingHorizontal="12dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/body_font"/>
+
+                    <EditText
+                        android:id="@+id/etDept"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="N° Departamento"
+                        android:inputType="number"
+                        android:background="@drawable/input_rounded"
+                        android:paddingHorizontal="12dp"
+                        android:fontFamily="@font/body_font"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@android:color/white"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¿Propina al Repartidor? 🏍️"
+                    android:textStyle="bold"
+                    android:textColor="#3E2723"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/title_font"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Esto ayuda a saber cuánto vuelto llevar."
+                    android:textSize="12sp"
+                    android:textColor="#757575"
+                    android:layout_marginBottom="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnTip500"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="$500"
+                        android:backgroundTint="#EEEEEE"
+                        android:textColor="#333"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnTip1000"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="$1.000"
+                        android:backgroundTint="#EEEEEE"
+                        android:textColor="#333"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnTip0"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sin Propina"
+                        android:backgroundTint="#FFEBEE"
+                        android:textColor="#D32F2F"/>
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/etCustomTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Otro monto (Opcional)"
+                    android:inputType="number"
+                    android:background="@drawable/input_rounded"
+                    android:paddingHorizontal="12dp"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/body_font"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btnContinueToPay"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="IR A PAGAR ➔"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="@color/gold_500"
+            app:cornerRadius="12dp"
+            android:fontFamily="@font/title_font"/>
+
+    </LinearLayout>
+</ScrollView>

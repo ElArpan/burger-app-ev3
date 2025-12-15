@@ -29,10 +29,14 @@
             android:layout_height="wrap_content"
             android:text="Total a Pagar: $0"
             android:textColor="#FFFFFF"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:fontFamily="@font/body_font"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="30dp"
+            android:shadowColor="#40000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,9 +50,9 @@
             android:id="@+id/cardCash"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="20dp"
             app:cardBackgroundColor="@android:color/white"
-            app:cardElevation="4dp"
+            app:cardElevation="8dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
             android:focusable="true"
@@ -92,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:text="¿Con cuánto vas a pagar?"
                         android:textColor="#666"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:fontFamily="@font/body_font"/>
 
                     <EditText
@@ -123,9 +127,9 @@
             android:id="@+id/cardTransfer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="20dp"
             app:cardBackgroundColor="@android:color/white"
-            app:cardElevation="4dp"
+            app:cardElevation="8dp"
             android:layout_marginBottom="30dp"
             android:clickable="true"
             android:focusable="true"
@@ -148,15 +152,129 @@
                     android:buttonTint="@color/burgundy_700"
                     android:fontFamily="@font/title_font"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/llTransferDetails"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Deberás subir el comprobante en el siguiente paso."
-                    android:textColor="#666"
-                    android:textSize="12sp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/body_font"/>
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/input_rounded"
+                    android:backgroundTint="#FFF8E1"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Datos para transferir:"
+                        android:textStyle="bold"
+                        android:textColor="@color/gold_dark"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="@font/title_font"/>
+
+                    <TextView
+                        android:id="@+id/tvHolderName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Titular: Byron Carrasco"
+                        android:textColor="#3E2723"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/body_font"/>
+
+                    <TextView
+                        android:id="@+id/tvBankName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Banco: Estado"
+                        android:textColor="#3E2723"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/body_font"/>
+
+                    <TextView
+                        android:id="@+id/tvAccountType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tipo: Cuenta RUT"
+                        android:textColor="#3E2723"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="@font/body_font"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D7CCC8"
+                        android:layout_marginBottom="12dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/layoutCopyRut"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="RUT: 17.807.475-k"
+                            android:id="@+id/tvRutData"
+                            android:textColor="#3E2723"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/body_font"/>
+
+                        <ImageView
+                            android:id="@+id/btnCopyRut"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@android:drawable/ic_menu_save"
+                            app:tint="@color/gold_700"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutCopyAccount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="N° Cuenta: 0017807475"
+                            android:id="@+id/tvAccountData"
+                            android:textColor="#3E2723"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/body_font"/>
+
+                        <ImageView
+                            android:id="@+id/btnCopyAccount"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@android:drawable/ic_menu_save"
+                            app:tint="@color/gold_700"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="👆 Toca para copiar"
+                        android:textSize="11sp"
+                        android:textColor="#8D6E63"
+                        android:gravity="end"
+                        android:layout_marginTop="8dp"/>
+
+                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
