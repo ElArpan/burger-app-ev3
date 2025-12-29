@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.B.carrasco.burgerapp.MainActivity;
 import com.B.carrasco.burgerapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -159,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                             intent = new Intent(LoginActivity.this, AdminMainActivity.class);
                             Toast.makeText(this, "Modo Admin activado", Toast.LENGTH_SHORT).show();
                         } else {
-                            intent = new Intent(LoginActivity.this, ClientMainActivity.class);
+                            intent = new Intent(LoginActivity.this, MainActivity.class);
                             Toast.makeText(this, "¡Hola, " + username + "!", Toast.LENGTH_SHORT).show();
                         }
 
@@ -215,7 +215,7 @@ public class LoginActivity extends AppCompatActivity {
                 .setTitle("Modo Invitado")
                 .setMessage("Podrás ver el menú, pero necesitarás registrarte para pedir. ¿Continuar?")
                 .setPositiveButton("Entrar", (dialog, which) -> {
-                    Intent intent = new Intent(LoginActivity.this, ClientMainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("USERNAME", "Invitado");
                     intent.putExtra("IS_GUEST", true);
                     startActivity(intent);

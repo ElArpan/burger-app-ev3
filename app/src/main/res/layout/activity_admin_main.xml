@@ -1,223 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@drawable/bg_burgundy_gold_gradient_old">
+    android:orientation="vertical"
+    android:background="#F5F5F5"
+    tools:context=".activities.AdminMainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:background="#D32F2F"
         android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/tvAdminHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Panel de Control"
-            android:textColor="@color/gold_light"
-            android:textSize="28sp"
+            android:text="PANEL DE CONTROL"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:fontFamily="@font/title_font"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="4dp" />
+            android:letterSpacing="0.1"/>
 
         <TextView
-            android:id="@+id/tvAdminSubHeader"
+            android:text="Administración Burger App"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Administrador"
-            android:textColor="#E0E0E0"
-            android:textSize="16sp"
-            android:fontFamily="@font/body_font"
-            android:layout_marginBottom="30dp" />
+            android:textColor="#FFCDD2"/>
+    </LinearLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardStoreControl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="#263238"
-            android:layout_marginBottom="24dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Estado del Local"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/title_font"/>
-
-                    <TextView
-                        android:id="@+id/tvStatusIndicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🔴 CERRADO"
-                        android:textColor="#FF5252"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/title_font"/>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Al cerrar, los vecinos no podrán realizar nuevos pedidos."
-                    android:textColor="#B0BEC5"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/body_font"/>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchStoreStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Abrir Tienda para recibir pedidos"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    app:thumbTint="@color/gold_500"
-                    app:trackTint="#80FFFFFF"
-                    android:fontFamily="@font/body_font"/>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardStoreControl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:gravity="center_vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardManageOrders"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="6dp"
-                app:cardBackgroundColor="@android:color/white"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_marginBottom="16dp">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:gravity="center_vertical">
+                    android:text="Estado del Local"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#333333"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🔥"
-                        android:textSize="32sp"
-                        android:layout_marginEnd="20dp"/>
+                <TextView
+                    android:id="@+id/tvStatusIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CERRADO"
+                    android:textColor="#D32F2F"
+                    android:textStyle="bold"
+                    android:textSize="14sp"/>
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pedidos en Cocina"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/burgundy_900"
-                            android:fontFamily="@font/title_font"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ver pedidos entrantes"
-                            android:textColor="#757575"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/body_font"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardManageIngredients"
-                android:layout_width="match_parent"
+            <Switch
+                android:id="@+id/switchStoreStatus"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="6dp"
-                app:cardBackgroundColor="@android:color/white"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_marginBottom="30dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🥬"
-                        android:textSize="32sp"
-                        android:layout_marginEnd="20dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Inventario &amp; Precios"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/burgundy_900"
-                            android:fontFamily="@font/title_font"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Editar ingredientes disponibles"
-                            android:textColor="#757575"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/body_font"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                android:scaleX="1.5"
+                android:scaleY="1.5"/>
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="Cerrar Sesión"
-            android:backgroundTint="#803E2723"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:fontFamily="@font/title_font"
-            app:cornerRadius="12dp"/>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:padding="8dp">
 
-    </LinearLayout>
-</ScrollView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardManageOrders"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@android:drawable/ic_menu_agenda"
+                    app:tint="#D32F2F"
+                    android:layout_marginBottom="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="COCINA &amp;\nPEDIDOS"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="#333333"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardManageIngredients"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@android:drawable/ic_menu_edit"
+                    app:tint="#FF9800"
+                    android:layout_marginBottom="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GESTIONAR\nINGREDIENTES"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="#333333"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+</LinearLayout>

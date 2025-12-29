@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.B.carrasco.burgerapp.MainActivity;
 import com.B.carrasco.burgerapp.R;
 import com.B.carrasco.burgerapp.utils.CartManager; // Importamos el carrito
 
@@ -93,7 +93,7 @@ public class DepositUploadActivity extends AppCompatActivity {
             CartManager.getInstance().clearCart();
 
             // 2. Redirigir al inicio (ClientMain) limpiando historial de pantallas
-            Intent intent = new Intent(DepositUploadActivity.this, ClientMainActivity.class);
+            Intent intent = new Intent(DepositUploadActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();

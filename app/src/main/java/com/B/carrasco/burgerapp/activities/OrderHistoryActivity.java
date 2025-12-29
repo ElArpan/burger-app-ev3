@@ -1,5 +1,6 @@
 package com.B.carrasco.burgerapp.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,13 +17,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.B.carrasco.burgerapp.R;
+import com.B.carrasco.burgerapp.models.OrderModel; // Usamos el modelo nuevo
+import com.B.carrasco.burgerapp.utils.CartManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
@@ -36,11 +38,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
     private ListView lvOrders;
     private LinearLayout layoutEmpty;
 
-    // Firebase
     private FirebaseFirestore db;
     private FirebaseAuth auth;
 
-    // Datos
     private List<DocumentSnapshot> orderList = new ArrayList<>();
     private OrderHistoryAdapter adapter;
 
@@ -64,11 +64,10 @@ public class OrderHistoryActivity extends AppCompatActivity {
     private void loadOrdersFromCloud() {
         FirebaseUser user = auth.getCurrentUser();
         if (user == null) {
-            finish(); // Si no está logueado, sacar de aquí
+            finish();
             return;
         }
 
-        // Consulta: Pedidos donde el userId sea igual al mío, ordenados por fecha
         db.collection("orders")
                 .whereEqualTo("userId", user.getUid())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -81,12 +80,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
                         if (value != null) {
                             orderList.clear();
-                            // Ordenamos manualmente por fecha (más reciente primero)
-                            // Nota: Firestore requiere un índice compuesto para ordenar + filtrar,
-                            // así que lo hacemos en Java para evitar complicaciones de configuración ahora.
                             List<DocumentSnapshot> docs = value.getDocuments();
 
-                            // Ordenar lista en Java (Descendente)
+                            // Ordenar por fecha (Descendente)
                             docs.sort((d1, d2) -> {
                                 Date date1 = d1.getDate("createdAt");
                                 Date date2 = d2.getDate("createdAt");
@@ -118,79 +114,78 @@ public class OrderHistoryActivity extends AppCompatActivity {
         }
     }
 
-    // Adaptador Interno
     class OrderHistoryAdapter extends ArrayAdapter<DocumentSnapshot> {
 
         public OrderHistoryAdapter() {
-            super(OrderHistoryActivity.this, R.layout.item_order_history, orderList);
+            super(OrderHistoryActivity.this, R.layout.item_admin_order, orderList);
+            // NOTA: Usamos item_admin_order porque tiene el diseño de tarjeta que queremos
+            // Si tienes un item_order_history.xml específico, úsalo aquí.
         }
 
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_order_history, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_admin_order, parent, false);
             }
 
+            // Convertir DocumentSnapshot a OrderModel para facilitar uso
             DocumentSnapshot doc = getItem(position);
+            OrderModel model = doc.toObject(OrderModel.class);
 
-            // Vinculamos vistas
-            TextView tvDate = convertView.findViewById(R.id.tvOrderDate);
+            // Vinculamos vistas (Usando los IDs de item_admin_order)
+            TextView tvDate = convertView.findViewById(R.id.tvOrderTime);
             TextView tvStatus = convertView.findViewById(R.id.tvOrderStatus);
-            TextView tvName = convertView.findViewById(R.id.tvBurgerName);
-            TextView tvDetails = convertView.findViewById(R.id.tvOrderDetails);
-            TextView tvPrice = convertView.findViewById(R.id.tvOrderPrice);
-            View statusStrip = convertView.findViewById(R.id.viewStatusStrip);
+            TextView tvClient = convertView.findViewById(R.id.tvClientName); // Lo usaremos para el título
+            TextView tvDesc = convertView.findViewById(R.id.tvOrderDescription);
+            TextView tvTotal = convertView.findViewById(R.id.tvTotal);
+            View header = convertView.findViewById(R.id.headerContainer);
 
-            // Obtener datos
-            Double price = doc.getDouble("totalPrice");
-            String meatType = doc.getString("meatType");
-            Boolean isDouble = doc.getBoolean("isDouble");
-            List<String> sauces = (List<String>) doc.get("sauces");
-            Date date = doc.getDate("createdAt");
-            String status = doc.getString("status");
-            if (status == null) status = "Pendiente";
+            // Ocultar botones de admin
+            View btnAction = convertView.findViewById(R.id.btnNextStatus);
+            if (btnAction != null) btnAction.setVisibility(View.GONE);
 
-            // Formatear
-            tvPrice.setText("$" + (price != null ? price.intValue() : 0));
+            // Llenar datos
+            if (model != null) {
+                tvClient.setText("Pedido #" + position); // Opcional
+                tvDesc.setText(model.getOrderDescription());
+                tvTotal.setText("$" + (int)model.getTotalPrice());
+                tvStatus.setText(model.getStatus().toUpperCase());
 
-            if (date != null) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM - HH:mm", Locale.getDefault());
-                tvDate.setText(sdf.format(date));
+                if (model.getCreatedAt() != null) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM - HH:mm", Locale.getDefault());
+                    tvDate.setText(sdf.format(model.getCreatedAt()));
+                }
+
+                // Colores
+                String status = model.getStatus().toLowerCase();
+                if (status.contains("entregado") || status.contains("archivado")) {
+                    header.setBackgroundColor(Color.parseColor("#4CAF50")); // Verde
+                } else if (status.contains("cancelado")) {
+                    header.setBackgroundColor(Color.parseColor("#D32F2F")); // Rojo
+                } else {
+                    header.setBackgroundColor(Color.parseColor("#FF9800")); // Naranja
+                }
+
+                // --- CLIC PARA RE-PEDIR ---
+                convertView.setOnClickListener(v -> {
+                    Toast.makeText(OrderHistoryActivity.this, "🔄 Cargando pedido anterior...", Toast.LENGTH_SHORT).show();
+
+                    // 1. Limpiar Carrito
+                    CartManager.getInstance().clearCart();
+
+                    // 2. Recuperar Logística Antigua (Para ahorrar tiempo)
+                    CartManager.getInstance().setDeliveryMode(model.getDeliveryMode());
+                    CartManager.getInstance().setDeliveryAddress(model.getDeliveryAddress());
+                    CartManager.getInstance().setTipAmount(0.0); // La propina la elige de nuevo por si acaso
+
+                    // 3. Ir a Armar Burger (Pasando la descripción para reconstruir)
+                    Intent intent = new Intent(OrderHistoryActivity.this, BuildBurgerActivity.class);
+                    intent.putExtra("REORDER_DESC", model.getOrderDescription());
+                    startActivity(intent);
+                    finish();
+                });
             }
-
-            // Nombre dinámico
-            String burgerTitle = "Hamburguesa " + (meatType != null ? meatType : "Clásica");
-            if (Boolean.TRUE.equals(isDouble)) burgerTitle += " Doble";
-            tvName.setText(burgerTitle);
-
-            // Detalles
-            String sauceText = (sauces != null && !sauces.isEmpty()) ? "Con " + String.join(", ", sauces) : "Sin salsas";
-            tvDetails.setText(sauceText);
-
-            // --- Lógica Visual de Estados ---
-            switch (status) {
-                case "Listo":
-                case "Entregado":
-                    tvStatus.setText("LISTO PARA RETIRAR");
-                    tvStatus.setTextColor(Color.parseColor("#388E3C")); // Verde oscuro
-                    tvStatus.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#E8F5E9"))); // Verde claro
-                    statusStrip.setBackgroundColor(Color.parseColor("#4CAF50"));
-                    break;
-                case "Cancelado":
-                    tvStatus.setText("CANCELADO");
-                    tvStatus.setTextColor(Color.parseColor("#D32F2F"));
-                    tvStatus.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#FFEBEE")));
-                    statusStrip.setBackgroundColor(Color.parseColor("#D32F2F"));
-                    break;
-                default: // Pendiente
-                    tvStatus.setText("EN COCINA...");
-                    tvStatus.setTextColor(Color.parseColor("#F57C00")); // Naranja
-                    tvStatus.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#FFF3E0")));
-                    statusStrip.setBackgroundColor(Color.parseColor("#FF9800"));
-                    break;
-            }
-
             return convertView;
         }
     }

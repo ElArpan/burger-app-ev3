@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
+import com.B.carrasco.burgerapp.MainActivity;
 import com.B.carrasco.burgerapp.R;
 import com.B.carrasco.burgerapp.utils.CartManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -252,7 +252,7 @@ public class PaymentMethodActivity extends AppCompatActivity {
             finish();
         } catch (Exception e) {
             // Si falla, volver al inicio igual
-            Intent intent = new Intent(PaymentMethodActivity.this, ClientMainActivity.class);
+            Intent intent = new Intent(PaymentMethodActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
