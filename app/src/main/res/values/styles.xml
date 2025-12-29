@@ -18,4 +18,82 @@
         <item name="hintTextColor">@color/burgundy_700</item>
     </style>
 
+    <style name="DashboardCardStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="cardBackgroundColor">#803E2723</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">6dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="rippleColor">@color/gold_500</item>
+        <item name="strokeColor">@color/gold_500</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="DashboardCardContent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="DashboardCardIcon">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="tint">#FFFFFF</item>
+    </style>
+
+    <style name="DashboardCardText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/body_font</item>
+        <item name="android:textColor">#EFEFEF</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="DashboardCardStyleCompact">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+
+        <item name="cardBackgroundColor">#993E2723</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="rippleColor">@color/gold_500</item>
+    </style>
+
+    <style name="DashboardCardContentCompact">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="DashboardCardIconCompact">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="tint">@color/gold_light</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+
+    <style name="DashboardCardTextCompact">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/body_font</item>
+        <item name="android:textColor">@color/gold_light</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 </resources>

@@ -8,61 +8,179 @@
     android:background="@drawable/bg_burgundy_gold_gradient_old"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/headerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvWelcomeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/title_font"
+            android:text="¡Hola, Vecino!"
+            android:textColor="@color/gold_500"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:shadowColor="#40000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/body_font"
+            android:text="¿Qué se te antoja hoy?"
+            android:textColor="#E0E0E0"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+    </LinearLayout>
+
     <ImageView
-        android:id="@+id/imageViewLogo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toTopOf="@+id/tvWelcome"
+        android:id="@+id/ivMainLogo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="16dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/logo_regalona"
+        app:layout_constraintBottom_toTopOf="@+id/cardStartOrder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintTop_toBottomOf="@+id/headerContainer" />
 
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/title_font"
-        android:text="BURGER APP"
-        android:textColor="@color/gold_light"
-        android:textSize="40sp"
-        android:textStyle="bold"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimation"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="-20dp"
+        android:layout_marginBottom="-10dp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/blue_bird_waiting" />
 
-    <Button
-        android:id="@+id/btnStartOrder"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardStartOrder"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/gold_500"
-        android:fontFamily="@font/title_font"
-        android:text="PEDIR HAMBURGUESA 🍔"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:cornerRadius="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/gold_500"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridOptions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+        app:rippleColor="#33FFFFFF">
 
-    <Button
-        android:id="@+id/btnHistory"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_fastfood"
+                app:tint="#FFFFFF" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/title_font"
+                    android:text="PEDIR MI REGALONA"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/body_font"
+                    android:text="Toca aquí para comenzar"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/gridOptions"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#5D4037"
-        android:fontFamily="@font/body_font"
-        android:text="MIS PEDIDOS ANTERIORES"
-        android:textColor="#FFFFFF"
-        app:cornerRadius="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnStartOrder" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardHistory"
+                style="@style/DashboardCardStyleCompact">
+                <LinearLayout style="@style/DashboardCardContentCompact">
+                    <ImageView style="@style/DashboardCardIconCompact" android:src="@drawable/ic_receipt_long"/>
+                    <TextView style="@style/DashboardCardTextCompact" android:text="Historial" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPriceGuide"
+                style="@style/DashboardCardStyleCompact">
+                <LinearLayout style="@style/DashboardCardContentCompact">
+                    <ImageView style="@style/DashboardCardIconCompact" android:src="@drawable/ic_menu_book"/>
+                    <TextView style="@style/DashboardCardTextCompact" android:text="Precios" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSupport"
+                style="@style/DashboardCardStyleCompact">
+                <LinearLayout style="@style/DashboardCardContentCompact">
+                    <ImageView style="@style/DashboardCardIconCompact" android:src="@drawable/ic_support_agent"/>
+                    <TextView style="@style/DashboardCardTextCompact" android:text="Ayuda" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLogout"
+                style="@style/DashboardCardStyleCompact"
+                app:cardBackgroundColor="#591A1A">
+                <LinearLayout style="@style/DashboardCardContentCompact">
+                    <ImageView style="@style/DashboardCardIconCompact" android:src="@drawable/ic_logout" app:tint="#FF8A80"/>
+                    <TextView style="@style/DashboardCardTextCompact" android:text="Salir" android:textColor="#FF8A80"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
